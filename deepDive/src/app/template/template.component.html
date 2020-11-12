@@ -1,0 +1,18 @@
+<div>
+  <div class="names">
+    <ng-container *ngTemplateOutlet ="names;context:{individual:person}"></ng-container>
+  </div>
+  <img width="200" alt="Person Image"
+      *ngIf="person.ImageUrl; else noImage"
+      [src] ="person.ImageUrl">
+
+  <ng-template #names let-individual = "individual">
+    <p>{{individual.Firstname + ' ' + individual.Middlename}}</p>
+  </ng-template>
+
+  <ng-template #noImage>
+    <p>No image available</p>
+  </ng-template>
+
+
+</div>

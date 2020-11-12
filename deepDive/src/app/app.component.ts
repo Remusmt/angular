@@ -1,3 +1,4 @@
+import { people } from './data/data';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'deepDive';
+  title = 'Angular Deep Dive';
+  people = people;
 }
