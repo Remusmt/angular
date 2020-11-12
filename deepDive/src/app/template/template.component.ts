@@ -1,4 +1,4 @@
-import { Person } from './../data/data';
+import { people, Person } from './../data/data';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -8,8 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TemplateComponent implements OnInit {
 
-  @Input() person: Person;
-
+  people = people;
   constructor() { }
 
   ngOnInit(): void {

@@ -1,4 +1,3 @@
-import { people } from './data/data';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular Deep Dive';
-  people = people;
+
 }

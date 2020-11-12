@@ -1,0 +1,11 @@
+
+<p>I am A component</p>
+
+<input id="firstName" type="text">
+<input id="middleName" type="text">
+<br/>
+<button (click)="updatePerson()">Trigger change detection</button>
+<button (click)="changePerson()">Trigger Binding change detection</button>
+<br>
+<button (click)="changeIndividualSublect()">Trigger async change detection</button>
+<app-change-child-detection [person]="person" [individual] = individual></app-change-child-detection>
