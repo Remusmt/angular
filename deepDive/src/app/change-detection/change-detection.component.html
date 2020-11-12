@@ -1,5 +1,5 @@
 
-<p>I am A component</p>
+<p>Change Detection</p>
 
 <input id="firstName" type="text">
 <input id="middleName" type="text">
@@ -9,3 +9,15 @@
 <br>
 <button (click)="changeIndividualSublect()">Trigger async change detection</button>
 <app-change-child-detection [person]="person" [individual] = individual></app-change-child-detection>
+
+<!-- NgZone -->
+<div>
+  <h2>NgZone</h2>
+  <h3>Looping people</h3>
+  <h4>{{labelText}}</h4>
+
+  <p>{{currentPerson.Firstname + ' ' + currentPerson.Middlename+ ' ' + currentPerson.Surname}}</p>
+  <button (click)="loopWithinAngularZone()">Within Angular Zone</button>&nbsp;
+  <button (click)="loopOutsideAngularZone()">Outside of Angular Zone</button>
+</div>
+

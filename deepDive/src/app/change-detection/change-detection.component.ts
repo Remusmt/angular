@@ -1,12 +1,11 @@
 import { Person, people } from './../data/data';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-change-detection',
   templateUrl: './change-detection.component.html',
-  styleUrls: ['./change-detection.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./change-detection.component.css']
 })
 export class ChangeDetectionComponent implements OnInit {
 
@@ -14,8 +13,13 @@ export class ChangeDetectionComponent implements OnInit {
   stream = new BehaviorSubject(people[1]);
   individual = this.stream.asObservable();
 
-  constructor() {
+  currentIndex = 0;
+  currentPerson: Person;
+  labelText = '';
+
+  constructor(private ngZone: NgZone) {
     this.person = people[0];
+    this.currentPerson = people[0];
    }
 
   ngOnInit(): void {
@@ -57,6 +61,38 @@ export class ChangeDetectionComponent implements OnInit {
     this.stream.next(ind);
 
     people[1] = ind;
+  }
+
+  // NgZone
+  loopPeople(doneCallBack: () => void): void {
+    if (this.currentIndex < people.length) {
+      this.currentPerson = people[this.currentIndex];
+      window.setTimeout(() => this.loopPeople(doneCallBack), 500);
+    } else {
+      doneCallBack();
+    }
+    this.currentIndex += 1;
+  }
+
+
+  loopWithinAngularZone(): void {
+    this.currentIndex = 0;
+    this.labelText = 'Within Angular Zone';
+    this.loopPeople(() => {
+      this.labelText = 'Done Within Angular Zone';
+    });
+  }
+
+  loopOutsideAngularZone(): void {
+    this.currentIndex = 0;
+    this.labelText = 'Outside of Angular Zone';
+    this.ngZone.runOutsideAngular(() => {
+      this.loopPeople(() => {
+        this.ngZone.run(() => {
+          this.labelText = 'Done Outside of Angular Zone';
+        });
+      });
+    });
   }
 
 }
